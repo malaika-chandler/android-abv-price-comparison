@@ -3,6 +3,7 @@ package com.example.abvpricecalculator;
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
 
 @Entity (tableName = "price_by_abv_list")
 public class BeerEntry {
@@ -20,6 +21,7 @@ public class BeerEntry {
     @NonNull
     private Double volume;
 
+    @TypeConverters(VolumeUnitConverter.class)
     @NonNull
     private VolumeUnit volumeUnits;
 
