@@ -37,11 +37,19 @@ public class BeerEntryListAdapter extends RecyclerView.Adapter<BeerEntryListAdap
 
     @Override
     public void onBindViewHolder(@NonNull BeerEntryViewHolder holder, int position) {
-
+        if (entries != null) {
+            BeerEntry current = entries.get(position);
+            holder.beerEntryName.setText(current.getName());
+        } else {
+            holder.beerEntryName.setText("No Hay Nada");
+        }
     }
 
     @Override
     public int getItemCount() {
+        if (entries != null) {
+            return entries.size();
+        }
         return 0;
     }
 }
