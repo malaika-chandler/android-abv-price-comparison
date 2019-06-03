@@ -9,7 +9,7 @@ import androidx.room.Query;
 import java.util.List;
 
 @Dao
-public interface BeerEntryDao extends Dao {
+public interface BeerEntryDao {
 
     @Insert (onConflict = OnConflictStrategy.REPLACE)
     void insert(BeerEntry entry);
