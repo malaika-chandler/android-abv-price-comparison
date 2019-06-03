@@ -1,5 +1,6 @@
 package com.example.abvpricecalculator;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
@@ -17,5 +18,5 @@ public interface BeerEntryDao extends Dao {
     void deleteAll();
 
     @Query("SELECT * from price_by_abv_list ORDER BY (price / ((abv / 100) * volume)) ASC")
-    List<BeerEntry> getAllEntries();
+    LiveData<List<BeerEntry>> getAllEntries();
 }
