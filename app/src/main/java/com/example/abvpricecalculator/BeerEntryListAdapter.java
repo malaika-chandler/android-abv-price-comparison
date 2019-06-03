@@ -18,21 +18,22 @@ public class BeerEntryListAdapter extends RecyclerView.Adapter<BeerEntryListAdap
 
         private BeerEntryViewHolder(View itemView) {
             super(itemView);
-            beerEntryName = itemView.findViewById(R.id.textView);
+            beerEntryName = itemView.findViewById(R.id.beer_name);
         }
     }
 
-    private final LayoutInflater layoutInflator;
+    private final LayoutInflater layoutInflater;
     private List<BeerEntry> entries; // Cached copy
 
     BeerEntryListAdapter (Context context) {
-        layoutInflator = LayoutInflater.from(context);
+        layoutInflater = LayoutInflater.from(context);
     }
 
     @NonNull
     @Override
     public BeerEntryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return null;
+        View itemView = layoutInflater.inflate(R.layout.beer_entry_recycler_item, parent, false);
+        return new BeerEntryViewHolder(itemView);
     }
 
     @Override
@@ -43,6 +44,11 @@ public class BeerEntryListAdapter extends RecyclerView.Adapter<BeerEntryListAdap
         } else {
             holder.beerEntryName.setText("No Hay Nada");
         }
+    }
+
+    void setEntries(List<BeerEntry> entries) {
+        this.entries = entries;
+        notifyDataSetChanged();
     }
 
     @Override
