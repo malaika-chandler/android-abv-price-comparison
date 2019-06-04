@@ -26,7 +26,19 @@ public class BeerEntry {
     private VolumeUnit volumeUnits;
 
     enum VolumeUnit {
-        MILLILITERS, OUNCES
+        MILLILITERS("Milliliters"),
+        OUNCES("Ounces");
+
+        private String friendlyName;
+
+        VolumeUnit (String friendlyName) {
+            this.friendlyName = friendlyName;
+        }
+
+        @Override
+        public String toString() {
+            return friendlyName;
+        }
     }
 
     public BeerEntry(@NonNull String name, @NonNull Double price, @NonNull Double abv, @NonNull Double volume, @NonNull VolumeUnit volumeUnits) {

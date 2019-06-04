@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -35,6 +36,12 @@ public class NewBeerEntryActivity extends AppCompatActivity {
         beerABVEditText = findViewById(R.id.beer_apv);
         beerVolumeEditText = findViewById(R.id.beer_volume);
         volumeUnitsSpinner = findViewById(R.id.units_spinner);
+
+        volumeUnitsSpinner.setAdapter(new ArrayAdapter<>(
+                this,
+                R.layout.support_simple_spinner_dropdown_item,
+                BeerEntry.VolumeUnit.values()
+        ));
 
         final Button button = findViewById(R.id.button_save);
         button.setOnClickListener(new View.OnClickListener() {
