@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == NEW_ENTRY_ACTIVITY_REQUEST_CODE) {
+        if (requestCode == NEW_ENTRY_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
             String beerName = data.getStringExtra(NewBeerEntryActivity.EXTRA_REPLY_NAME);
             double beerPrice = Double.parseDouble(data.getStringExtra(NewBeerEntryActivity.EXTRA_REPLY_PRICE));
             double beerABV = Double.parseDouble(data.getStringExtra(NewBeerEntryActivity.EXTRA_REPLY_ABV));
