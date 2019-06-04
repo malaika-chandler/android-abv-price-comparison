@@ -4,21 +4,22 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.lucasurbas.listitemview.ListItemView;
 
 import java.util.List;
 
 public class BeerEntryListAdapter extends RecyclerView.Adapter<BeerEntryListAdapter.BeerEntryViewHolder> {
 
     class BeerEntryViewHolder extends RecyclerView.ViewHolder {
-        private final TextView beerEntryName;
+        private final ListItemView beerItem;
 
         private BeerEntryViewHolder(View itemView) {
             super(itemView);
-            beerEntryName = itemView.findViewById(R.id.beer_name);
+            beerItem = itemView.findViewById(R.id.beer_item_view);
         }
     }
 
@@ -40,9 +41,13 @@ public class BeerEntryListAdapter extends RecyclerView.Adapter<BeerEntryListAdap
     public void onBindViewHolder(@NonNull BeerEntryViewHolder holder, int position) {
         if (entries != null) {
             BeerEntry current = entries.get(position);
-            holder.beerEntryName.setText(current.getName());
+            holder.beerItem.setTitle(current.getName());
+            holder.beerItem.setSubtitle("$" + current.getPrice() + " for "
+                    + current.getVolume() + " "
+                    + current.getVolumeUnits() + " at "
+                    + current.getAbv() + "%");
         } else {
-            holder.beerEntryName.setText(R.string.empty_entry_set);
+            holder.beerItem.setTitle(R.string.empty_entry_set);
         }
     }
 
