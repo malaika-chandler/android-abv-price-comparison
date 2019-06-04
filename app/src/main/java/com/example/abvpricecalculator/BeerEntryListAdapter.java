@@ -42,7 +42,7 @@ public class BeerEntryListAdapter extends RecyclerView.Adapter<BeerEntryListAdap
             BeerEntry current = entries.get(position);
             holder.beerEntryName.setText(current.getName());
         } else {
-            holder.beerEntryName.setText("No Hay Nada");
+            holder.beerEntryName.setText(R.string.empty_entry_set);
         }
     }
 

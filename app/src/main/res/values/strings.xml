@@ -8,4 +8,5 @@
     <string name="add_new">Add New</string>
     <string name="button_save">Save</string>
     <string name="entry_not_saved">Entry not saved</string>
+    <string name="empty_entry_set">No Hay Nada</string>
 </resources>
