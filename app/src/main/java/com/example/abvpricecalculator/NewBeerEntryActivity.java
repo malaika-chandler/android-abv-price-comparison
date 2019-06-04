@@ -54,6 +54,7 @@ public class NewBeerEntryActivity extends AppCompatActivity {
                         .putExtra(EXTRA_REPLY_ABV, beerABV)
                         .putExtra(EXTRA_REPLY_VOLUME, beerVolume)
                         .putExtra(EXTRA_REPLY_UNITS, beerVolumeUnits);
+
                     setResult(RESULT_OK, replyIntent);
                 }
                 finish();
