@@ -59,7 +59,14 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == NEW_ENTRY_ACTIVITY_REQUEST_CODE) {
-            //
+            String beerName = data.getStringExtra(NewBeerEntryActivity.EXTRA_REPLY_NAME);
+            double beerPrice = Double.parseDouble(data.getStringExtra(NewBeerEntryActivity.EXTRA_REPLY_PRICE));
+            double beerABV = Double.parseDouble(data.getStringExtra(NewBeerEntryActivity.EXTRA_REPLY_ABV));
+            double beerVolume = Double.parseDouble(data.getStringExtra(NewBeerEntryActivity.EXTRA_REPLY_VOLUME));
+            String beerVolumeUnits = data.getStringExtra(NewBeerEntryActivity.EXTRA_REPLY_UNITS);
+
+            BeerEntry entry = new BeerEntry(beerName, beerPrice, beerABV, beerVolume, VolumeUnitConverter.toVolumeUnit(beerVolumeUnits));
+            beerEntryViewModel.insert(entry);
         } else {
             Toast.makeText(getApplicationContext(), R.string.entry_not_saved, Toast.LENGTH_LONG)
                     .show();
