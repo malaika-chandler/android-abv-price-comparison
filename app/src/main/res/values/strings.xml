@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">ABV Price Calculator</string>
     <string name="action_settings">Settings</string>
+    <string name="volume">Volume</string>
+    <string name="abv_percent">ABV (Percent)</string>
+    <string name="price">Price</string>
+    <string name="beer_name">Beer Name</string>
+    <string name="add_new">Add New</string>
+    <string name="button_save">Save</string>
 </resources>
