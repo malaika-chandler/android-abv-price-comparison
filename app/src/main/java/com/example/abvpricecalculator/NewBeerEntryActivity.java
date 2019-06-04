@@ -54,7 +54,7 @@ public class NewBeerEntryActivity extends AppCompatActivity {
                     double beerPrice = Double.parseDouble(beerPriceEditText.getText().toString());
                     double beerABV = Double.parseDouble(beerABVEditText.getText().toString());
                     double beerVolume = Double.parseDouble(beerVolumeEditText.getText().toString());
-                    String beerVolumeUnits = volumeUnitsSpinner.toString();
+                    String beerVolumeUnits = volumeUnitsSpinner.getSelectedItem().toString();
 
                     replyIntent.putExtra(EXTRA_REPLY_NAME, beerName)
                         .putExtra(EXTRA_REPLY_PRICE, beerPrice)

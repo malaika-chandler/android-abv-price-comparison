@@ -61,9 +61,9 @@ public class MainActivity extends AppCompatActivity {
 
         if (requestCode == NEW_ENTRY_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
             String beerName = data.getStringExtra(NewBeerEntryActivity.EXTRA_REPLY_NAME);
-            double beerPrice = Double.parseDouble(data.getStringExtra(NewBeerEntryActivity.EXTRA_REPLY_PRICE));
-            double beerABV = Double.parseDouble(data.getStringExtra(NewBeerEntryActivity.EXTRA_REPLY_ABV));
-            double beerVolume = Double.parseDouble(data.getStringExtra(NewBeerEntryActivity.EXTRA_REPLY_VOLUME));
+            double beerPrice = data.getDoubleExtra(NewBeerEntryActivity.EXTRA_REPLY_PRICE, 0.0);
+            double beerABV = data.getDoubleExtra(NewBeerEntryActivity.EXTRA_REPLY_ABV, 1.0);
+            double beerVolume = data.getDoubleExtra(NewBeerEntryActivity.EXTRA_REPLY_VOLUME, 1.0);
             String beerVolumeUnits = data.getStringExtra(NewBeerEntryActivity.EXTRA_REPLY_UNITS);
 
             BeerEntry entry = new BeerEntry(beerName, beerPrice, beerABV, beerVolume, VolumeUnitConverter.toVolumeUnit(beerVolumeUnits));
