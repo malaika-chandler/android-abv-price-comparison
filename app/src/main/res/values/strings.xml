@@ -15,4 +15,9 @@
     <string name="validation_error_beer_volume">Volume needs to be greater than 0</string>
     <string name="button_cancel">Cancel</string>
     <string name="validation_error_empty_abv">ABV can\'t be empty</string>
+    <string name="delete_all_entries">Remove all entries</string>
+    <string name="delete_selected_entries">Remove selected</string>
+    <string name="action_remove_single_entry">Delete</string>
+    <string name="undo_snackbar_text">Undo delete?</string>
+    <string name="undo_snackbar_undo">Undo</string>
 </resources>

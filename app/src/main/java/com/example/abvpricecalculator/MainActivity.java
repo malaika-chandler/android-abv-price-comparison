@@ -19,9 +19,10 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements AdapterDatabaseCallbacks {
 
     public static final int NEW_ENTRY_ACTIVITY_REQUEST_CODE = 1;
+    public static final int DELETE_ENTRY_ACTIVITY_REQUEST_CODE = 2;
 
     private BeerEntryViewModel beerEntryViewModel;
 
@@ -33,9 +34,10 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
-        final BeerEntryListAdapter adapter = new BeerEntryListAdapter(this);
+        final BeerEntryListAdapter adapter = new BeerEntryListAdapter(this, this, this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+//        recyclerView.
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -59,18 +61,22 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == NEW_ENTRY_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
-            String beerName = data.getStringExtra(NewBeerEntryActivity.EXTRA_REPLY_NAME);
-            double beerPrice = data.getDoubleExtra(NewBeerEntryActivity.EXTRA_REPLY_PRICE, 0.0);
-            double beerABV = data.getDoubleExtra(NewBeerEntryActivity.EXTRA_REPLY_ABV, 1.0);
-            double beerVolume = data.getDoubleExtra(NewBeerEntryActivity.EXTRA_REPLY_VOLUME, 1.0);
-            String beerVolumeUnits = data.getStringExtra(NewBeerEntryActivity.EXTRA_REPLY_UNITS);
+        if (requestCode == NEW_ENTRY_ACTIVITY_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                if (data != null) {
+                    String beerName = data.getStringExtra(NewBeerEntryActivity.EXTRA_REPLY_NAME);
+                    double beerPrice = data.getDoubleExtra(NewBeerEntryActivity.EXTRA_REPLY_PRICE, 0.0);
+                    double beerABV = data.getDoubleExtra(NewBeerEntryActivity.EXTRA_REPLY_ABV, 1.0);
+                    double beerVolume = data.getDoubleExtra(NewBeerEntryActivity.EXTRA_REPLY_VOLUME, 1.0);
+                    String beerVolumeUnits = data.getStringExtra(NewBeerEntryActivity.EXTRA_REPLY_UNITS);
 
-            BeerEntry entry = new BeerEntry(beerName, beerPrice, beerABV, beerVolume, VolumeUnitConverter.toVolumeUnit(beerVolumeUnits));
-            beerEntryViewModel.insert(entry);
-        } else {
-            Toast.makeText(getApplicationContext(), R.string.entry_not_saved, Toast.LENGTH_LONG)
-                    .show();
+                    BeerEntry entry = new BeerEntry(beerName, beerPrice, beerABV, beerVolume, VolumeUnitConverter.toVolumeUnit(beerVolumeUnits));
+                    beerEntryViewModel.insert(entry);
+                } else {
+                    Toast.makeText(getApplicationContext(), R.string.entry_not_saved, Toast.LENGTH_LONG)
+                            .show();
+                }
+            }
         }
     }
 
@@ -94,5 +100,16 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void deleteEntries(BeerEntry... entries) {
+        beerEntryViewModel.delete(entries);
+    }
+
+    @Override
+    public void reAddEntries(BeerEntry... entries) {
+        // TODO: 2019-06-06 Handle multiple inserts in the future
+        beerEntryViewModel.insert(entries[0]);
     }
 }

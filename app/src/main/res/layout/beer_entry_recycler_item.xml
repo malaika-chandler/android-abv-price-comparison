@@ -10,7 +10,8 @@
         app:liv_title="@string/beer_name"
         app:liv_subtitle="@string/beer_name"
         app:liv_multiline="false"
-        app:liv_displayMode="icon"
+        app:liv_displayMode="standard"
+        app:liv_menu="@menu/single_entry_menu"
         xmlns:app="http://schemas.android.com/apk/res-auto" />
 
 </LinearLayout>
