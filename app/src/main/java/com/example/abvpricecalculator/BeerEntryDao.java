@@ -19,7 +19,7 @@ public interface BeerEntryDao {
     void deleteAll();
 
     @Delete
-    void delete(BeerEntry entry);
+    void delete(BeerEntry... entries);
 
     @Query("SELECT * from price_by_abv_list ORDER BY (price / ((abv / 100) * volume)) ASC")
     LiveData<List<BeerEntry>> getAllEntries();

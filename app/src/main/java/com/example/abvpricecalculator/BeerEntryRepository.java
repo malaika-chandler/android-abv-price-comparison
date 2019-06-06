@@ -60,7 +60,7 @@ public class BeerEntryRepository {
             if (beerEntries.length == 0) {
                 asyncBeerEntryDao.deleteAll();
             } else {
-                asyncBeerEntryDao.delete(beerEntries[0]);
+                asyncBeerEntryDao.delete(beerEntries);
             }
 
             return null;
