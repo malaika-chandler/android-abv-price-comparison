@@ -1,6 +1,6 @@
 package com.example.abvpricecalculator;
 
-public interface AdapterDatabaseCallbacks {
+public interface AdapterDatabaseCallbacksInterface {
     void deleteEntries(BeerEntry... entries);
     void reAddEntries(BeerEntry... entries);
 }

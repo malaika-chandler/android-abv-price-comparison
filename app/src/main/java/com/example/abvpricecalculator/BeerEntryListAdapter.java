@@ -30,14 +30,14 @@ public class BeerEntryListAdapter extends RecyclerView.Adapter<BeerEntryListAdap
     private List<BeerEntry> entries; // Cached copy
 
     private Activity mActivity;
-    private AdapterDatabaseCallbacks adapterDatabaseCallbacks;
+    private AdapterDatabaseCallbacksInterface adapterDatabaseCallbacksInterface;
     private BeerEntry mRecentlyDeletedEntry;
     private int mRecentlyDeletedEntryPosition;
 
-    BeerEntryListAdapter (Context context, Activity mActivity, AdapterDatabaseCallbacks adapterDatabaseCallbacks) {
+    BeerEntryListAdapter (Context context, Activity mActivity, AdapterDatabaseCallbacksInterface adapterDatabaseCallbacksInterface) {
         layoutInflater = LayoutInflater.from(context);
         this.mActivity = mActivity;
-        this.adapterDatabaseCallbacks = adapterDatabaseCallbacks;
+        this.adapterDatabaseCallbacksInterface = adapterDatabaseCallbacksInterface;
     }
 
     @NonNull
@@ -76,7 +76,7 @@ public class BeerEntryListAdapter extends RecyclerView.Adapter<BeerEntryListAdap
         entries.remove(position);
         notifyItemRemoved(position);
 
-        adapterDatabaseCallbacks.deleteEntries(mRecentlyDeletedEntry);
+        adapterDatabaseCallbacksInterface.deleteEntries(mRecentlyDeletedEntry);
 
         showUndoSnackBar();
     }
@@ -107,7 +107,7 @@ public class BeerEntryListAdapter extends RecyclerView.Adapter<BeerEntryListAdap
 
     private void undoDelete() {
         entries.add(mRecentlyDeletedEntryPosition, mRecentlyDeletedEntry);
-        adapterDatabaseCallbacks.reAddEntries(mRecentlyDeletedEntry);
+        adapterDatabaseCallbacksInterface.reAddEntries(mRecentlyDeletedEntry);
         notifyItemInserted(mRecentlyDeletedEntryPosition);
     }
 }

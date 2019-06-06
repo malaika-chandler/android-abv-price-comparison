@@ -19,10 +19,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements AdapterDatabaseCallbacks {
+public class MainActivity extends AppCompatActivity implements AdapterDatabaseCallbacksInterface {
 
     public static final int NEW_ENTRY_ACTIVITY_REQUEST_CODE = 1;
-    public static final int DELETE_ENTRY_ACTIVITY_REQUEST_CODE = 2;
 
     private BeerEntryViewModel beerEntryViewModel;
 
@@ -37,7 +36,6 @@ public class MainActivity extends AppCompatActivity implements AdapterDatabaseCa
         final BeerEntryListAdapter adapter = new BeerEntryListAdapter(this, this, this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-//        recyclerView.
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -97,6 +95,8 @@ public class MainActivity extends AppCompatActivity implements AdapterDatabaseCa
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
+        } else if (id == R.id.delete_all) {
+            beerEntryViewModel.deleteAllEntries();
         }
 
         return super.onOptionsItemSelected(item);
