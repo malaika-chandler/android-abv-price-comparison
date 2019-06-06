@@ -9,4 +9,8 @@
     <string name="button_save">Save</string>
     <string name="entry_not_saved">Entry not saved</string>
     <string name="empty_entry_set">No Hay Nada</string>
+    <string name="validation_error_beer_name">Name can\'t be empty</string>
+    <string name="validation_error_beer_price">Price must be greater than 0.00</string>
+    <string name="validation_error_beer_abv">ABV has to be a valid percent between 1 and 100</string>
+    <string name="validation_error_beer_volume">Volume needs to be greater than 0</string>
 </resources>

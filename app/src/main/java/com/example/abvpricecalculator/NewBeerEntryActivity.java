@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -37,6 +38,8 @@ public class NewBeerEntryActivity extends AppCompatActivity {
         beerVolumeEditText = findViewById(R.id.beer_volume);
         volumeUnitsSpinner = findViewById(R.id.units_spinner);
 
+        setUpValidation();
+
         volumeUnitsSpinner.setAdapter(new ArrayAdapter<>(
                 this,
                 R.layout.support_simple_spinner_dropdown_item,
@@ -65,6 +68,46 @@ public class NewBeerEntryActivity extends AppCompatActivity {
                     setResult(RESULT_OK, replyIntent);
                 }
                 finish();
+            }
+        });
+    }
+
+    private void setUpValidation() {
+
+        beerNameEditText.addTextChangedListener(new NewEntryValidator(beerNameEditText) {
+            @Override
+            public void validate(TextView textView, String text) {
+                if (text.isEmpty()) {
+                    textView.setError(getString(R.string.validation_error_beer_name));
+                }
+            }
+        });
+
+        beerPriceEditText.addTextChangedListener(new NewEntryValidator(beerPriceEditText) {
+            @Override
+            public void validate(TextView textView, String text) {
+                if (Double.parseDouble(text) <= 0) {
+                    textView.setError(getString(R.string.validation_error_beer_price));
+                }
+            }
+        });
+
+        beerABVEditText.addTextChangedListener(new NewEntryValidator(beerABVEditText) {
+            @Override
+            public void validate(TextView textView, String text) {
+                double abv = Double.parseDouble(text);
+                if (abv < 0 || abv > 100) {
+                    textView.setError(getString(R.string.validation_error_beer_abv));
+                }
+            }
+        });
+
+        beerVolumeEditText.addTextChangedListener(new NewEntryValidator(beerVolumeEditText) {
+            @Override
+            public void validate(TextView textView, String text) {
+                if (Double.parseDouble(text) < 0) {
+                    textView.setError(getString(R.string.validation_error_beer_volume));
+                }
             }
         });
     }
