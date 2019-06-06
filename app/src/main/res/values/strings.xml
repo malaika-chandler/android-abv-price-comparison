@@ -13,4 +13,6 @@
     <string name="validation_error_beer_price">Price must be greater than 0.00</string>
     <string name="validation_error_beer_abv">ABV has to be a valid percent between 1 and 100</string>
     <string name="validation_error_beer_volume">Volume needs to be greater than 0</string>
+    <string name="button_cancel">Cancel</string>
+    <string name="validation_error_empty_abv">ABV can\'t be empty</string>
 </resources>

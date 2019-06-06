@@ -2,7 +2,6 @@ package com.example.abvpricecalculator;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -26,6 +25,12 @@ public class NewBeerEntryActivity extends AppCompatActivity {
     private EditText beerVolumeEditText;
     private Spinner volumeUnitsSpinner;
 
+    private boolean entryIsValid = false;
+    private boolean isBeerNameValid = false;
+    private boolean isBeerPriceValid = false;
+    private boolean isBeerABVValid = false;
+    private boolean isBeerVolumeValid = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +43,6 @@ public class NewBeerEntryActivity extends AppCompatActivity {
         beerVolumeEditText = findViewById(R.id.beer_volume);
         volumeUnitsSpinner = findViewById(R.id.units_spinner);
 
-        setUpValidation();
 
         volumeUnitsSpinner.setAdapter(new ArrayAdapter<>(
                 this,
@@ -46,13 +50,12 @@ public class NewBeerEntryActivity extends AppCompatActivity {
                 BeerEntry.VolumeUnit.values()
         ));
 
-        final Button button = findViewById(R.id.button_save);
-        button.setOnClickListener(new View.OnClickListener() {
+        final Button buttonSave = findViewById(R.id.button_save);
+        buttonSave.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                Intent replyIntent = new Intent();
-                if (TextUtils.isEmpty(beerNameEditText.getText())) {
-                    setResult(RESULT_CANCELED, replyIntent);
-                } else {
+                if (entryIsValid) {
+                    Intent replyIntent = new Intent();
+
                     String beerName = beerNameEditText.getText().toString();
                     double beerPrice = Double.parseDouble(beerPriceEditText.getText().toString());
                     double beerABV = Double.parseDouble(beerABVEditText.getText().toString());
@@ -66,49 +69,95 @@ public class NewBeerEntryActivity extends AppCompatActivity {
                         .putExtra(EXTRA_REPLY_UNITS, beerVolumeUnits);
 
                     setResult(RESULT_OK, replyIntent);
+
+                    finish();
+                } else {
+                    // TODO validation message
                 }
+            }
+        });
+
+        setUpValidation(buttonSave);
+
+        final Button buttonCancel = findViewById(R.id.button_cancel);
+        buttonCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent replyIntent = new Intent();
+                setResult(RESULT_CANCELED, replyIntent);
                 finish();
             }
         });
     }
 
-    private void setUpValidation() {
+
+    // TODO: 2019-06-06 Better way to handle save button state
+    private void setUpValidation(final Button saveButton) {
 
         beerNameEditText.addTextChangedListener(new NewEntryValidator(beerNameEditText) {
             @Override
             public void validate(TextView textView, String text) {
                 if (text.isEmpty()) {
                     textView.setError(getString(R.string.validation_error_beer_name));
+                    isBeerNameValid = false;
+                } else {
+                    isBeerNameValid = true;
                 }
+                validateForm();
+                saveButton.setEnabled(entryIsValid);
             }
         });
 
         beerPriceEditText.addTextChangedListener(new NewEntryValidator(beerPriceEditText) {
             @Override
-            public void validate(TextView textView, String text) {
-                if (Double.parseDouble(text) <= 0) {
+            public void validate(TextView textView, String priceString) {
+                if (priceString.isEmpty() || Double.parseDouble(priceString) <= 0) {
                     textView.setError(getString(R.string.validation_error_beer_price));
+                    isBeerPriceValid = false;
+                } else {
+                    isBeerPriceValid = true;
                 }
+                validateForm();
+                saveButton.setEnabled(entryIsValid);
             }
         });
 
         beerABVEditText.addTextChangedListener(new NewEntryValidator(beerABVEditText) {
             @Override
-            public void validate(TextView textView, String text) {
-                double abv = Double.parseDouble(text);
-                if (abv < 0 || abv > 100) {
-                    textView.setError(getString(R.string.validation_error_beer_abv));
+            public void validate(TextView textView, String abvString) {
+                if (!abvString.isEmpty()) {
+                    double abv = Double.parseDouble(abvString);
+                    if (abv < 0 || abv > 100) {
+                        textView.setError(getString(R.string.validation_error_beer_abv));
+                        isBeerABVValid = false;
+                    } else {
+                        isBeerABVValid = true;
+                    }
+                } else {
+                    textView.setError(getString(R.string.validation_error_empty_abv));
+                    isBeerABVValid = false;
                 }
+                validateForm();
+                saveButton.setEnabled(entryIsValid);
             }
         });
 
         beerVolumeEditText.addTextChangedListener(new NewEntryValidator(beerVolumeEditText) {
             @Override
-            public void validate(TextView textView, String text) {
-                if (Double.parseDouble(text) < 0) {
+            public void validate(TextView textView, String volumeString) {
+                if (volumeString.isEmpty() || Double.parseDouble(volumeString) < 0) {
                     textView.setError(getString(R.string.validation_error_beer_volume));
+                    isBeerVolumeValid = false;
+                } else {
+                    isBeerVolumeValid = true;
                 }
+                validateForm();
+                saveButton.setEnabled(entryIsValid);
             }
         });
+    }
+
+    private void validateForm() {
+        entryIsValid = isBeerNameValid && isBeerPriceValid && isBeerABVValid && isBeerVolumeValid;
     }
 }
