@@ -26,6 +26,10 @@ public class BeerEntryRepository {
         new insertAsyncTask(beerEntryDao).execute(beerEntry);
     }
 
+    public void deleteAllEntries() {
+        new deleteAsyncTask(beerEntryDao).execute();
+    }
+
     private static class insertAsyncTask extends AsyncTask<BeerEntry, Void, Void> {
         private BeerEntryDao asyncBeerEntryDao;
 
@@ -36,6 +40,29 @@ public class BeerEntryRepository {
         @Override
         protected Void doInBackground(final BeerEntry... beerEntries) {
             asyncBeerEntryDao.insert(beerEntries[0]);
+            return null;
+        }
+    }
+
+    public void delete(BeerEntry beerEntry) {
+        new deleteAsyncTask(beerEntryDao).execute(beerEntry);
+    }
+
+    private static class deleteAsyncTask extends AsyncTask<BeerEntry, Void, Void> {
+        private BeerEntryDao asyncBeerEntryDao;
+
+        deleteAsyncTask(BeerEntryDao asyncBeerEntryDao) {
+            this.asyncBeerEntryDao = asyncBeerEntryDao;
+        }
+
+        @Override
+        protected Void doInBackground(BeerEntry... beerEntries) {
+            if (beerEntries.length == 0) {
+                asyncBeerEntryDao.deleteAll();
+            } else {
+                asyncBeerEntryDao.delete(beerEntries[0]);
+            }
+
             return null;
         }
     }

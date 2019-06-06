@@ -2,6 +2,7 @@ package com.example.abvpricecalculator;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
@@ -16,6 +17,9 @@ public interface BeerEntryDao {
 
     @Query("DELETE FROM price_by_abv_list")
     void deleteAll();
+
+    @Delete
+    void delete(BeerEntry entry);
 
     @Query("SELECT * from price_by_abv_list ORDER BY (price / ((abv / 100) * volume)) ASC")
     LiveData<List<BeerEntry>> getAllEntries();

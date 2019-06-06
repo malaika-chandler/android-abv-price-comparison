@@ -26,4 +26,8 @@ public class BeerEntryViewModel extends AndroidViewModel {
     public void insert(BeerEntry entry) {
         beerEntryRepository.insert(entry);
     }
+
+    public void delete(BeerEntry entry) { beerEntryRepository.delete(entry); }
+
+    public void deleteAllEntries() { beerEntryRepository.deleteAllEntries(); }
 }
