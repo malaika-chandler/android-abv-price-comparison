@@ -6,58 +6,98 @@
     android:orientation="vertical"
     android:padding="20dp">
 
-    <EditText
-        android:id="@+id/beer_name"
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/beer_name"
-        android:importantForAutofill="no"
-        android:inputType="textShortMessage"
-        tools:targetApi="o" />
+        android:layout_height="wrap_content">
 
-    <EditText
-        android:id="@+id/beer_price"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/beer_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/beer_name"
+            android:importantForAutofill="no"
+            android:inputType="textShortMessage"
+            tools:targetApi="o" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/price"
-        android:importantForAutofill="no"
-        android:inputType="numberDecimal"
-        tools:targetApi="o" />
+        android:layout_height="wrap_content">
 
-    <EditText
-        android:id="@+id/beer_apv"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/beer_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/price"
+            android:importantForAutofill="no"
+            android:inputType="numberDecimal"
+            tools:targetApi="o" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/abv_percent"
-        android:importantForAutofill="no"
-        android:inputType="numberDecimal"
-        tools:targetApi="o" />
+        android:layout_height="wrap_content">
 
-    <EditText
-        android:id="@+id/beer_volume"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/beer_apv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/abv_percent"
+            android:importantForAutofill="no"
+            android:inputType="numberDecimal"
+            tools:targetApi="o" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/volume"
-        android:importantForAutofill="no"
-        android:inputType="numberDecimal"
-        tools:targetApi="o" />
+        android:layout_height="wrap_content">
 
-    <Spinner
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/beer_volume"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/volume"
+            android:importantForAutofill="no"
+            android:inputType="numberDecimal"
+            tools:targetApi="o" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <androidx.appcompat.widget.AppCompatSpinner
         android:id="@+id/units_spinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:spinnerMode="dropdown" />
 
-    <Button
-        android:id="@+id/button_save"
+    <LinearLayout
+        style="@style/Widget.AppCompat.ButtonBar.AlertDialog"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        android:text="@string/button_save"
-        android:textColor="@color/buttonLabel" />
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/button_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/design_default_color_background"
+            android:text="@string/button_cancel"
+            android:textColor="@color/buttonLabel"
+            style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog" />
+
+        <Button
+            android:id="@+id/button_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:text="@string/button_save"
+            android:textColor="@color/buttonLabel"
+            style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"/>
+    </LinearLayout>
+
 
 </LinearLayout>
