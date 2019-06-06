@@ -44,8 +44,8 @@ public class BeerEntryRepository {
         }
     }
 
-    public void delete(BeerEntry beerEntry) {
-        new deleteAsyncTask(beerEntryDao).execute(beerEntry);
+    public void delete(BeerEntry... beerEntries) {
+        new deleteAsyncTask(beerEntryDao).execute(beerEntries);
     }
 
     private static class deleteAsyncTask extends AsyncTask<BeerEntry, Void, Void> {
