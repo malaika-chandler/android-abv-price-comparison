@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.snackbar.Snackbar;
 import com.lucasurbas.listitemview.ListItemView;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class BeerEntryListAdapter extends RecyclerView.Adapter<BeerEntryListAdapter.BeerEntryViewHolder> {
@@ -52,10 +53,15 @@ public class BeerEntryListAdapter extends RecyclerView.Adapter<BeerEntryListAdap
         if (entries != null) {
             BeerEntry current = entries.get(position);
             holder.beerItem.setTitle(current.getName());
-            holder.beerItem.setSubtitle("$" + current.getPrice() + " for "
-                    + current.getVolume() + " "
+
+            // TODO: 2019-06-07 Write a cleaner way to print out the details of the drink
+            DecimalFormat df = new DecimalFormat("#.##");
+            DecimalFormat mf = new DecimalFormat("#.00");
+            holder.beerItem.setSubtitle("$" + mf.format(current.getPrice()) + " for "
+                    + df.format(current.getVolume()) + " "
                     + current.getVolumeUnits() + " at "
-                    + current.getAbv() + "%");
+                    + df.format(current.getAbv()) + "%");
+
             holder.beerItem.setOnMenuItemClickListener(new ListItemView.OnMenuItemClickListener() {
                 @Override
                 public void onActionMenuItemSelected(MenuItem item) {

@@ -17,7 +17,7 @@
             android:ems="10"
             android:hint="@string/beer_name"
             android:importantForAutofill="no"
-            android:inputType="textShortMessage"
+            android:inputType="textShortMessage|textPersonName|text|textCapSentences|textCapWords"
             tools:targetApi="o" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -77,6 +77,7 @@
 
     <LinearLayout
         style="@style/Widget.AppCompat.ButtonBar.AlertDialog"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -87,6 +88,7 @@
             android:background="@color/design_default_color_background"
             android:text="@string/button_cancel"
             android:textColor="@color/buttonLabel"
+            android:layout_weight="2"
             style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog" />
 
         <Button
@@ -96,6 +98,7 @@
             android:background="@color/colorPrimary"
             android:text="@string/button_save"
             android:textColor="@color/buttonLabel"
+            android:layout_weight="2"
             style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"/>
     </LinearLayout>
 
