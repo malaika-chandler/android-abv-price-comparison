@@ -25,6 +25,9 @@ public class BeerEntry {
     @NonNull
     private VolumeUnit volumeUnits;
 
+    @NonNull
+    private Double volumeInML;
+
     enum VolumeUnit {
         MILLILITERS("Milliliters"),
         OUNCES("Ounces");
@@ -39,6 +42,15 @@ public class BeerEntry {
         public String toString() {
             return friendlyName;
         }
+
+        public double convertToML(double amount) {
+            switch (this) {
+                case MILLILITERS: return amount;
+                case OUNCES: return amount * 29.574;
+            }
+            return 1;
+        }
+
     }
 
     public BeerEntry(@NonNull String name, @NonNull Double price, @NonNull Double abv, @NonNull Double volume, @NonNull VolumeUnit volumeUnits) {
@@ -47,6 +59,7 @@ public class BeerEntry {
         this.abv = abv;
         this.volume = volume;
         this.volumeUnits = volumeUnits;
+        this.volumeInML = volumeUnits.convertToML(volume);
     }
 
     @NonNull
@@ -70,7 +83,12 @@ public class BeerEntry {
     }
 
     @NonNull
-    public VolumeUnit getVolumeUnits() {
-        return volumeUnits;
+    public VolumeUnit getVolumeUnits() { return volumeUnits; }
+
+    @NonNull
+    public Double getVolumeInML() { return volumeInML; }
+
+    public void setVolumeInML(@NonNull Double volumeInML) {
+        this.volumeInML = volumeInML;
     }
 }
