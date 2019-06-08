@@ -5,9 +5,7 @@ Maintains an ordered list of drinks, sorted by best price given the volume and t
 [![Build Status](https://travis-ci.org/malaika-chandler/android-abv-price-comparison.svg?branch=master)](https://travis-ci.org/malaika-chandler/android-abv-price-comparison)
 
 ## App Images
-![Default screen](sample-images/Screenshot_20190608-085818.png?raw=true "Home Screen")
-
-![New entry](sample-images/Screenshot_20190608-085828.png?raw=true "Add new entry")
+![Default screen](sample-images/Screenshot_20190608-085818.png?raw=true "Home Screen") ![New entry](sample-images/Screenshot_20190608-085828.png?raw=true "Add new entry")
 
 ## Acknowledgments
 
