@@ -9,5 +9,4 @@ Maintains an ordered list of drinks, sorted by best price given the volume and t
 
 ## Acknowledgments
 
-* Thanks to lurbas for [ListItemView](https://github.com/lurbas/ListItemView)
 

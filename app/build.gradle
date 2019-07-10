@@ -8,6 +8,7 @@ android {
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
+        android.defaultConfig.vectorDrawables.useSupportLibrary true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         javaCompileOptions {
             annotationProcessorOptions {
@@ -51,7 +52,4 @@ dependencies {
     // Test helpers
     testImplementation "androidx.room:room-testing:$rootProject.roomVersion"
 
-
-    //
-    implementation 'com.lucasurbas:listitemview:1.1.1'
 }

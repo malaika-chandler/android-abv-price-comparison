@@ -2,16 +2,17 @@ package com.example.abvpricecalculator;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Resources;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.snackbar.Snackbar;
-import com.lucasurbas.listitemview.ListItemView;
 
 import java.text.DecimalFormat;
 import java.util.List;
@@ -19,13 +20,21 @@ import java.util.List;
 public class BeerEntryListAdapter extends RecyclerView.Adapter<BeerEntryListAdapter.BeerEntryViewHolder> {
 
     class BeerEntryViewHolder extends RecyclerView.ViewHolder {
-        private final ListItemView beerItem;
+
+        private final TextView beerEntryNameTextView;
+        private final TextView beerEntrySubtitleTextView;
+        private final ImageButton beerEntryDeleteButton;
 
         private BeerEntryViewHolder(View itemView) {
             super(itemView);
-            beerItem = itemView.findViewById(R.id.beer_item_view);
+
+            beerEntryNameTextView = itemView.findViewById(R.id.beer_name_text_view);
+            beerEntrySubtitleTextView = itemView.findViewById(R.id.beer_subtitle_text_view);
+            beerEntryDeleteButton = itemView.findViewById(R.id.beer_entry_delete_button);
         }
     }
+
+    private Resources res;
 
     private final LayoutInflater layoutInflater;
     private List<BeerEntry> entries; // Cached copy
@@ -39,6 +48,7 @@ public class BeerEntryListAdapter extends RecyclerView.Adapter<BeerEntryListAdap
         layoutInflater = LayoutInflater.from(context);
         this.mActivity = mActivity;
         this.adapterDatabaseCallbacksInterface = adapterDatabaseCallbacksInterface;
+        res = context.getResources();
     }
 
     @NonNull
@@ -52,26 +62,27 @@ public class BeerEntryListAdapter extends RecyclerView.Adapter<BeerEntryListAdap
     public void onBindViewHolder(@NonNull BeerEntryViewHolder holder, final int position) {
         if (entries != null) {
             BeerEntry current = entries.get(position);
-            holder.beerItem.setTitle(current.getName());
+            holder.beerEntryNameTextView.setText(current.getName());
 
             // TODO: 2019-06-07 Write a cleaner way to print out the details of the drink
             DecimalFormat df = new DecimalFormat("#.##");
             DecimalFormat mf = new DecimalFormat("#.00");
-            holder.beerItem.setSubtitle("$" + mf.format(current.getPrice()) + " for "
-                    + df.format(current.getVolume()) + " "
-                    + current.getVolumeUnits() + " at "
-                    + df.format(current.getAbv()) + "%");
 
-            holder.beerItem.setOnMenuItemClickListener(new ListItemView.OnMenuItemClickListener() {
+            holder.beerEntrySubtitleTextView.setText(res.getString(
+                    R.string.beer_list_view_subtitle_placeholder,
+                    mf.format(current.getPrice()),
+                    df.format(current.getVolume()),
+                    current.getVolumeUnits().toString(),
+                    df.format(current.getAbv())));
+
+            holder.beerEntryDeleteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onActionMenuItemSelected(MenuItem item) {
-                    if (item.getItemId() == R.id.single_item_menu_action_delete) {
-                        deleteEntry(position);
-                    }
+                public void onClick(View view) {
+                    deleteEntry(position);
                 }
             });
         } else {
-            holder.beerItem.setTitle(R.string.empty_entry_set);
+            holder.beerEntryNameTextView.setText(R.string.empty_entry_set);
         }
     }
 

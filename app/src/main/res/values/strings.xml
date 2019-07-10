@@ -5,6 +5,7 @@
     <string name="abv_percent">ABV (Percent)</string>
     <string name="price">Price</string>
     <string name="beer_name">Beer Name</string>
+    <string name="beer_list_view_subtitle_placeholder">$%1$s for %2$s %3$s at %4$s%%</string>
     <string name="add_new">Add New Entry</string>
     <string name="button_save">Save</string>
     <string name="entry_not_saved">Entry not saved</string>
